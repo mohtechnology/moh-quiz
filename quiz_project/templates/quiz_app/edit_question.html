@@ -1,0 +1,75 @@
+{% extends 'quiz_app/base.html' %}
+{% block title %}Edit Question{% endblock %}
+
+{% block content %}
+<h2>Edit Question</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+        <label>Question Text:</label>
+        <input type="text" name="text" class="form-control" value="{{ question.text }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Option 1:</label>
+        <input type="text" id="option1" name="option1" class="form-control" value="{{ question.option1 }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Option 2:</label>
+        <input type="text" id="option2" name="option2" class="form-control" value="{{ question.option2 }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Option 3:</label>
+        <input type="text" id="option3" name="option3" class="form-control" value="{{ question.option3 }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Option 4:</label>
+        <input type="text" id="option4" name="option4" class="form-control" value="{{ question.option4 }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Correct Answer:</label>
+        <select id="correct_option" name="correct_option" class="form-control"> 
+            <option value="{{ question.option1 }}" {% if question.correct_option == question.option1 %}selected{% endif %}>{{ question.option1 }}</option>
+            <option value="{{ question.option2 }}" {% if question.correct_option == question.option2 %}selected{% endif %}>{{ question.option2 }}</option>
+            <option value="{{ question.option3 }}" {% if question.correct_option == question.option3 %}selected{% endif %}>{{ question.option3 }}</option>
+            <option value="{{ question.option4 }}" {% if question.correct_option == question.option4 %}selected{% endif %}>{{ question.option4 }}</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Update Question</button>
+</form>
+
+<script>
+    function updateDropdown() {
+        const correctOptionSelect = document.getElementById("correct_option");
+        const options = [
+            document.getElementById("option1").value,
+            document.getElementById("option2").value,
+            document.getElementById("option3").value,
+            document.getElementById("option4").value
+        ];
+
+        correctOptionSelect.innerHTML = "";  // Clear current options
+
+        options.forEach((opt, index) => {
+            let optionElement = document.createElement("option");
+            optionElement.value = opt;
+            optionElement.textContent = opt;
+            correctOptionSelect.appendChild(optionElement);
+        });
+    }
+
+    // Update dropdown whenever an option input changes
+    document.getElementById("option1").addEventListener("input", updateDropdown);
+    document.getElementById("option2").addEventListener("input", updateDropdown);
+    document.getElementById("option3").addEventListener("input", updateDropdown);
+    document.getElementById("option4").addEventListener("input", updateDropdown);
+</script>
+
+{% endblock %}

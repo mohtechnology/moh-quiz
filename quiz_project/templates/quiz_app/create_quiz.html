@@ -1,0 +1,31 @@
+{% extends 'quiz_app/base.html' %}
+{% block title %}Create Quiz{% endblock %}
+
+{% block content %}
+    <h2>Create a New Quiz</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Quiz Title:</label>
+            <input type="text" name="title" class="form-control" required>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Description:</label>
+            <textarea name="description" class="form-control" required></textarea>
+        </div>
+    
+        <div class="mb-3">
+            <label class="form-label">Time Limit (minutes):</label>
+            <input type="number" name="time_limit" class="form-control" required>
+        </div>
+    
+        <div class="mb-3">
+            <label class="form-label">Quiz Password:</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+    
+        <button type="submit" class="btn btn-success">Create Quiz</button>
+    </form>
+    
+{% endblock %}

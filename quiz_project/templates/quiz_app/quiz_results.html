@@ -1,0 +1,38 @@
+{% extends 'quiz_app/base.html' %}
+{% block title %}Quiz Results{% endblock %}
+
+{% block content %}
+<h2>Results for "{{ quiz.title }}"</h2>
+
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Enrollment Number</th>
+            <th>Student Name</th>
+            <th>Score</th>
+            <th>Total Questions</th>
+            <th>Time Taken</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in results %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ result.student.enrollment }}</td>
+            <td>{{ result.student.name }}</td>
+            <td>{{ result.score }}</td>
+            <td>{{ result.total_questions }}</td>
+            <td id='taken_time'>{{ result.time_taken }} sec</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="text-center">No results available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'home' %}" class="btn btn-primary">Back to Quizzes</a>
+
+{% endblock %}

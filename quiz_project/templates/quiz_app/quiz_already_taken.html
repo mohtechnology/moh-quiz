@@ -1,0 +1,10 @@
+{% extends 'quiz_app/base.html' %}
+{% block title %}Quiz Already Taken{% endblock %}
+
+{% block content %}
+<div class="alert alert-warning text-center">
+    <h3>You have already taken this quiz.</h3>
+    <p>Please try another quiz.</p>
+    <a href="{% url 'home' %}" class="btn btn-primary">Go to Quizzes</a>
+</div>
+{% endblock %}

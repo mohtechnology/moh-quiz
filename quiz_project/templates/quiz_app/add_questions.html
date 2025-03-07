@@ -1,0 +1,67 @@
+{% extends 'quiz_app/base.html' %}
+{% block content %}
+<h2>Add Questions to "{{ quiz.title }}"</h2>
+
+<p class="alert alert-info">
+    Total Questions: <strong>{{ total_questions }}</strong>
+</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">Question</label>
+        <input type="text" name="question_text" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Option 1</label>
+        <input type="text" name="option1" id="option1" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Option 2</label>
+        <input type="text" name="option2" id="option2" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Option 3</label>
+        <input type="text" name="option3" id="option3" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Option 4</label>
+        <input type="text" name="option4" id="option4" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Correct Answer</label>
+        <select name="correct_answer" id="correct_answer" class="form-control" required>
+            <option value="">Select Correct Answer</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Add Question</button>
+</form>
+
+<script>
+    function updateDropdown() {
+        let options = [
+            document.getElementById("option1").value,
+            document.getElementById("option2").value,
+            document.getElementById("option3").value,
+            document.getElementById("option4").value
+        ];
+        let dropdown = document.getElementById("correct_answer");
+        dropdown.innerHTML = '<option value="">Select Correct Answer</option>';  // Reset dropdown
+
+        options.forEach(option => {
+            if (option.trim() !== "") {
+                let newOption = document.createElement("option");
+                newOption.value = option;
+                newOption.textContent = option;
+                dropdown.appendChild(newOption);
+            }
+        });
+    }
+
+    document.getElementById("option1").addEventListener("input", updateDropdown);
+    document.getElementById("option2").addEventListener("input", updateDropdown);
+    document.getElementById("option3").addEventListener("input", updateDropdown);
+    document.getElementById("option4").addEventListener("input", updateDropdown);
+</script>
+
+{% endblock %}
